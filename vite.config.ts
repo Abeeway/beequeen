@@ -7,7 +7,7 @@ import { defineConfig } from "vite";
 // import { FW_VERSION } from "./version";
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => ({
+export default defineConfig(() => ({
   plugins: [
     react(),
     tailwindcss(),
