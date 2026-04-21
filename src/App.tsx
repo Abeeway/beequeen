@@ -76,6 +76,11 @@ import {
   LR_WIFI_MIN_NB_BSSID,
   LR_WIFI_MIN_RSSI,
   LR_WIFI_BSSID_MAC_TYPE,
+  LR_RBEACON_TYPE,
+  LR_RBEACON_SOS_PERIOD,
+  LR_RBEACON_MOTION_PERIOD,
+  LR_RBEACON_STATIC_PERIOD,
+  LR_RBEACON_RANGING_TIMEOUT,
   BLE_SCAN1_DURATION,
   BLE_SCAN1_WINDOW,
   BLE_SCAN1_INTERVAL,
@@ -154,6 +159,7 @@ import {
   CELL_APN_USER_PWD,
   CELL_APN_AUTH_PROTOCOL,
   CELL_FUOTA_SERVER_IP_URL_ADDR,
+  CELL_RESTRICTED_PLMNS,
   BLE_CNX_TX_POWER,
   BLE_CNX_ADV_DURATION,
   BLE_CNX_BEHAVIOR,
@@ -659,6 +665,41 @@ function App() {
                   />
                   <ParamOptions
                     param_const={LR_WIFI_BSSID_MAC_TYPE}
+                    params_ref={params_ref}
+                    defpar_ref={defpar_ref}
+                    dummy_state={dummy_state}
+                  />
+
+                  <h3 className="col-span-full text-lg font-bold text-cyan-600">
+                    Recovery Beacon Parameters
+                  </h3>
+
+                  <ParamOptions
+                    param_const={LR_RBEACON_TYPE}
+                    params_ref={params_ref}
+                    defpar_ref={defpar_ref}
+                    dummy_state={dummy_state}
+                  />
+                  <ParamI32
+                    param_const={LR_RBEACON_SOS_PERIOD}
+                    params_ref={params_ref}
+                    defpar_ref={defpar_ref}
+                    dummy_state={dummy_state}
+                  />
+                  <ParamI32
+                    param_const={LR_RBEACON_MOTION_PERIOD}
+                    params_ref={params_ref}
+                    defpar_ref={defpar_ref}
+                    dummy_state={dummy_state}
+                  />
+                  <ParamI32
+                    param_const={LR_RBEACON_STATIC_PERIOD}
+                    params_ref={params_ref}
+                    defpar_ref={defpar_ref}
+                    dummy_state={dummy_state}
+                  />
+                  <ParamI32
+                    param_const={LR_RBEACON_RANGING_TIMEOUT}
                     params_ref={params_ref}
                     defpar_ref={defpar_ref}
                     dummy_state={dummy_state}
@@ -1215,6 +1256,12 @@ function App() {
                   />
                   <ParamString
                     param_const={CELL_FUOTA_SERVER_IP_URL_ADDR}
+                    params_ref={params_ref}
+                    defpar_ref={defpar_ref}
+                    dummy_state={dummy_state}
+                  />
+                  <ParamString
+                    param_const={CELL_RESTRICTED_PLMNS}
                     params_ref={params_ref}
                     defpar_ref={defpar_ref}
                     dummy_state={dummy_state}

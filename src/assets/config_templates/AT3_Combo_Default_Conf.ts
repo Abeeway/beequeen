@@ -51,6 +51,13 @@ lr_wifi_report_nb_bssid = 4
 lr_wifi_min_nb_bssid = 3
 lr_wifi_min_rssi = 0
 lr_wifi_bssid_mac_type = 1
+
+lr_rbeacon_type = 2
+lr_rbeacon_sos_period = 0
+lr_rbeacon_motion_period = 0
+lr_rbeacon_static_period = 0
+lr_rbeacon_ranging_timeout = 120
+
 ble_scan1_duration = 3000
 ble_scan2_duration = 3000
 ble_scan1_window = 120
@@ -129,6 +136,9 @@ cell_apn_user_id = ""
 cell_apn_user_pwd = ""
 cell_apn_auth_protocol = 1
 cell_fuota_server_ip_url_addr = "tools.abeeway.io"
+
+cell_restricted_plmns = ""
+
 ble_cnx_tx_power = 25
 ble_cnx_adv_duration = 60
 ble_cnx_behavior = 1

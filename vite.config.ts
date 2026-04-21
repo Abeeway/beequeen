@@ -21,7 +21,7 @@ export default defineConfig(() => ({
   ],
   root: "./",
   publicDir: "public",
-  base: "/beequeen/",
+  base: "/beequeen-rc/",
   build: {
     copyPublicDir: true,
     outDir: "./dist",

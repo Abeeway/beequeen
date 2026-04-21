@@ -272,6 +272,8 @@ export async function export_as_production_config_file(
       "",
     );
 
+  cfg_file_str += "END\n";
+
   const cfg_file_blob = new Blob([cfg_file_str], { type: "text/plain" });
   const dateString = new Date().toISOString().slice(0, 16);
   const pickerOptions: SaveFilePickerOptions = {

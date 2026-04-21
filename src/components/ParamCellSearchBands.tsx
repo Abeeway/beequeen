@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Label, Select, Tooltip } from "flowbite-react";
 import { ParamCodes } from "./ParamCodes.tsx";
 import {
-  Param_cell_search_bands,
+  Param_cell_bands,
   CELL_NWK_ID_OPTIONS,
   validate_search_bands,
   c_string_to_bytes,
@@ -17,7 +17,7 @@ export function ParamCellSearchBands({
   defpar_ref,
   dummy_state,
 }: {
-  param_const: Param_cell_search_bands;
+  param_const: Param_cell_bands;
   params_ref: React.RefObject<Record<string, string | null>>;
   defpar_ref: React.RefObject<Record<string, string | null> | undefined>;
   dummy_state: number;

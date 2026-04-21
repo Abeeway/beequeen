@@ -249,7 +249,7 @@ export interface Param_lorawan_s1_tx_strategy extends Param {
   default_val: Lorawan_s1_tx_strategy_gui_val;
 }
 
-export interface Param_cell_search_bands extends Param {
+export interface Param_cell_bands extends Param {
   len: number;
   default_val: number[];
 }
@@ -273,7 +273,7 @@ export type Param_type =
   | Param_geoloc_profileX_triggers
   | Param_geoloc_gbe_profileX_techno
   | Param_lorawan_s1_tx_strategy
-  | Param_cell_search_bands
+  | Param_cell_bands
   | Param_cell_psm_time_XXX;
 
 export interface Notif_bitmap_gui_val {
@@ -1144,9 +1144,11 @@ export function button_timing_str_to_val(
         .i32_num,
     };
   } catch (err) {
-    throw new Error(
+    const field_error = new Error(
       `One of the fields has the following error: ${(err as Error).message}`,
     );
+    (field_error as Error & { cause: unknown }).cause = err;
+    throw field_error;
   }
 }
 
@@ -1247,9 +1249,11 @@ export function led_map_str_to_val(
     }
     return val;
   } catch (err) {
-    throw new Error(
+    const field_error = new Error(
       `One of the fields has the following error: ${(err as Error).message}`,
     );
+    (field_error as Error & { cause: unknown }).cause = err;
+    throw field_error;
   }
 }
 
@@ -1329,9 +1333,11 @@ export function buzzer_map_str_to_val(
     }
     return val;
   } catch (err) {
-    throw new Error(
+    const field_error = new Error(
       `One of the fields has the following error: ${(err as Error).message}`,
     );
+    (field_error as Error & { cause: unknown }).cause = err;
+    throw field_error;
   }
 }
 
@@ -1473,9 +1479,11 @@ export function cell_psm_time_str_to_val(
       time_unit: str.time_unit,
     };
   } catch (err) {
-    throw new Error(
+    const field_error = new Error(
       `One of the fields has the following error: ${(err as Error).message}`,
     );
+    (field_error as Error & { cause: unknown }).cause = err;
+    throw field_error;
   }
 }
 
@@ -2646,6 +2654,67 @@ export const LR_WIFI_BSSID_MAC_TYPE: Param_options = {
   default_val: 1,
 };
 
+export const LR_RBEACON_TYPE: Param_options = {
+  id: 0x0408,
+  name: "lr_rbeacon_type",
+  title: "R-Beacon Id type",
+  desc: "Recovery Beacon Id type",
+  type: "i32_options",
+  options: {
+    short_id: { desc: "Short ID (API-K)", val: 1 },
+    long_id: { desc: "Long ID (EUI64)", val: 2 },
+  },
+  default_val: 2,
+};
+
+export const LR_RBEACON_SOS_PERIOD: Param_i32 = {
+  id: 0x0409,
+  name: "lr_rbeacon_sos_period",
+  title: "R-Beacon SOS period",
+  desc: "Recovery Beacon period in SOS mode",
+  type: "i32",
+  min_val: 0,
+  max_val: 63,
+  default_val: 0,
+  unit: "s",
+};
+
+export const LR_RBEACON_MOTION_PERIOD: Param_i32 = {
+  id: 0x040a,
+  name: "lr_rbeacon_motion_period",
+  title: "R-Beacon period in motion state",
+  desc: "Recovery Beacon period in motion state",
+  type: "i32",
+  min_val: 0,
+  max_val: 63,
+  default_val: 0,
+  unit: "s",
+};
+
+export const LR_RBEACON_STATIC_PERIOD: Param_i32 = {
+  id: 0x040b,
+  name: "lr_rbeacon_static_period",
+  title: "R-Beacon period in static state",
+  desc: "Recovery Beacon period in static state",
+  type: "i32",
+  min_val: 0,
+  max_val: 63,
+  default_val: 0,
+  unit: "s",
+};
+
+export const LR_RBEACON_RANGING_TIMEOUT: Param_i32 = {
+  id: 0x040c,
+  name: "lr_rbeacon_ranging_timeout",
+  title: "Ranging timeout",
+  desc: "Timeout to exit the ranging mode",
+  type: "i32",
+  min_val: 120,
+  max_val: 300,
+  default_val: 120,
+  unit: "s",
+};
+
 // -------------------------------------------------------
 // --- BLE_SCAN1
 // -------------------------------------------------------
@@ -3418,7 +3487,7 @@ export const CELL_NETWORK_TYPE: Param_options = {
   default_val: 1,
 };
 
-export const CELL_SEARCH_BANDS: Param_cell_search_bands = {
+export const CELL_SEARCH_BANDS: Param_cell_bands = {
   id: 0x0a02,
   name: "cell_search_bands",
   title: "Radio frequency bands scanned to search a cell",
@@ -3618,6 +3687,8 @@ export const CELL_S1_TRANSPORT_PROTO: Param_options = {
   options: {
     tcp: { desc: "TCP", val: 0 },
     udp: { desc: "UDP", val: 1 },
+    secure_tcp: { desc: "Secure TCP", val: 2 },
+    secure_udp: { desc: "Secure UDP", val: 3 },
   },
   default_val: 1,
 };
@@ -3717,6 +3788,15 @@ export const CELL_FUOTA_SERVER_IP_URL_ADDR: Param_string = {
   desc: "Firmware Update Server URL or address",
   type: "string",
   default_val: "tools.abeeway.io",
+};
+
+export const CELL_RESTRICTED_PLMNS: Param_string = {
+  id: 0x0a1b,
+  name: "cell_restricted_plmns",
+  title: "Restricted PLMNs",
+  desc: "List of restricted Public Land Mobile Networks (PLMNs). This comma-separated string of 3 digits country codes can hold up to 8 PLMNs'",
+  type: "string",
+  default_val: "",
 };
 
 // -------------------------------------------------------
@@ -3973,6 +4053,11 @@ export const PARAMS_AT3: Param_type[] = [
   LR_WIFI_MIN_NB_BSSID,
   LR_WIFI_MIN_RSSI,
   LR_WIFI_BSSID_MAC_TYPE,
+  LR_RBEACON_TYPE,
+  LR_RBEACON_SOS_PERIOD,
+  LR_RBEACON_MOTION_PERIOD,
+  LR_RBEACON_STATIC_PERIOD,
+  LR_RBEACON_RANGING_TIMEOUT,
 
   BLE_SCAN1_DURATION,
   BLE_SCAN1_WINDOW,
@@ -4057,6 +4142,7 @@ export const PARAMS_AT3: Param_type[] = [
   CELL_APN_USER_PWD,
   CELL_APN_AUTH_PROTOCOL,
   CELL_FUOTA_SERVER_IP_URL_ADDR,
+  CELL_RESTRICTED_PLMNS,
 
   BLE_CNX_TX_POWER,
   BLE_CNX_ADV_DURATION,
