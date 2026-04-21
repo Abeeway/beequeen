@@ -36,8 +36,6 @@ export function BqNavbar({
 }) {
   // try {
 
-  const app_base_url = import.meta.env.BASE_URL;
-
   const [config_file_name, set_config_file_name] = useState("");
   const [show_modal, set_show_modal] = useState(false);
   const [modal_text, set_modal_text] = useState({ title: "", content: "" });
@@ -403,7 +401,10 @@ export function BqNavbar({
               </Dropdown>
             </div>
 
-            <NavbarLink href={app_base_url} target="_blank">
+            <NavbarLink
+              href="https://abeeway.github.io/beehive"
+              target="_blank"
+            >
               <img
                 src={beehive_icon}
                 className="logo inline-block h-6 pr-1 pb-1"
