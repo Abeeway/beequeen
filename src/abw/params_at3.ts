@@ -3794,7 +3794,7 @@ export const CELL_RESTRICTED_PLMNS: Param_string = {
   id: 0x0a1b,
   name: "cell_restricted_plmns",
   title: "Restricted PLMNs",
-  desc: "List of restricted Public Land Mobile Networks (PLMNs). This comma-separated string of 3 digits country codes can hold up to 8 PLMNs'",
+  desc: 'Comma-separated list of restricted Mobile Country Codes (MCCs). Each MCC must be a 3-digit number (e.g., "310,262").',
   type: "string",
   default_val: "",
 };
